@@ -12,7 +12,7 @@ class CreatePageTable extends Migration
      */
     public function up()
     {
-        Schema::create('page', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('domain_id')->unigned();
             $table->string('type');
@@ -20,7 +20,7 @@ class CreatePageTable extends Migration
             $table->text('note');
             $table->timestamps();
 
-            $table->foreign('domain_id')->references('id')->on('domain');
+            $table->foreign('domain_id')->references('id')->on('domains');
 
         });
     }
@@ -32,6 +32,6 @@ class CreatePageTable extends Migration
      */
     public function down()
     {
-        Schema::drop('page');
+        Schema::drop('pages');
     }
 }
