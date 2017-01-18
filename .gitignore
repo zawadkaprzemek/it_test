@@ -11,4 +11,5 @@ composer.lock
 storage
 *.iml
 .idea
+.idea/workspace.xml
 composer.lock
