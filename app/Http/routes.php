@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('domains','DomainsController');
+//Route::get('/domains','DomainsController@index');
+//Route::get('/domains/edit/id','DomainsController@edit');
