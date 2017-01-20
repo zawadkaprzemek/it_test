@@ -21,7 +21,7 @@
         {!! Form::label('robots','Robots:') !!}
     </div>
     <div class="col-md-6">
-        {!! Form::text('robots',null,['class'=>'form-control']) !!}
+        {!! Form::textarea('robots',null,['class'=>'form-control']) !!}
     </div>
 </div>
 

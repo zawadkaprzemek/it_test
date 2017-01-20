@@ -32,9 +32,8 @@ class DomainsController extends Controller
         return view('domains.create');
     }
 
-    public function store(){
-        $input = Request::all();
-        Domains::create($input);
+    public function store(CreateDomainRequest $request){
+        Domains::create($request->all());
         Session::flash('flash_message','Domena została dodana');
         return redirect('domains');
     }
