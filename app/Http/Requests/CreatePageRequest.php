@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class CreateProductRequest extends Request
+class CreatePageRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class CreateProductRequest extends Request
     public function rules()
     {
         return [
-            'name'=>'required',
-            'code'=>'required'
+            'domain_id'=>'required',
+            'type'=>'required',
+            'status'=>'required'
         ];
     }
 }

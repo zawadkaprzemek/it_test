@@ -4,12 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Domains extends Model
+class Product extends Model
 {
     protected $fillable = [
         'name',
-        'description',
-        'robots',
-        'status'
+        'code'
     ];
 }

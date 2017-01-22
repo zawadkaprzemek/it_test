@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 Route::resource('domains','DomainsController');
 Route::resource('products','ProductsController');
+Route::resource('pages','PagesController');
 //Route::auth();
 /*
 Route::get('/domains','DomainsController@index');

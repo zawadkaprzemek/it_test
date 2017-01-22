@@ -6,10 +6,10 @@
                 <div class="panel-body">
                     <!-- Formularz -->
 
-                   @include('domains.form_errors')
-                    {!! Form::model($domains,['method'=>'PATCH','class'=>'form-horizontal','action'=>['DomainsController@update',$domains->id]]) !!}
+                   @include('pages.form_errors')
+                    {!! Form::model($pages,['method'=>'PATCH','class'=>'form-horizontal','action'=>['PagesController@update',$pages->id]]) !!}
 
-                    @include('domains.form',['buttonText'=>'Zaaktualizuj domenę'])
+                    @include('pages.form',['buttonText'=>'Zaaktualizuj stronę'])
 
                     {!! Form::close() !!}
 

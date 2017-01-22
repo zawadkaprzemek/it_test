@@ -1,27 +1,18 @@
 <div class="form-group">
     <div class="col-md-4 control-label">
-        {!! Form::label('name','Nazwa:') !!}
+        {!! Form::label('domain_id','Domena:') !!}
     </div>
     <div class="col-md-6">
-        {!! Form::text('name',null,['class'=>'form-control']) !!}
+        {!! Form::select('domain_id',$domains, null,['class'=>'form-control','placeholder' => 'Wybierz domenę']) !!}
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-md-4 control-label">
-        {!! Form::label('description','Opis:') !!}
+        {!! Form::label('type','Typ:') !!}
     </div>
     <div class="col-md-6">
-        {!! Form::textarea('description',null,['class'=>'form-control']) !!}
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-4 control-label">
-        {!! Form::label('robots','Robots:') !!}
-    </div>
-    <div class="col-md-6">
-        {!! Form::textarea('robots',null,['class'=>'form-control']) !!}
+        {!! Form::text('type',null,['class'=>'form-control']) !!}
     </div>
 </div>
 
@@ -31,6 +22,15 @@
     </div>
     <div class="col-md-6">
         {!! Form::text('status',null,['class'=>'form-control']) !!}
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-4 control-label">
+        {!! Form::label('note','Notatka:') !!}
+    </div>
+    <div class="col-md-6">
+        {!! Form::textarea('note',null,['class'=>'form-control']) !!}
     </div>
 </div>
 
