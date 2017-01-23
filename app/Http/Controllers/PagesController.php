@@ -10,6 +10,7 @@ use Session;
 use Flash;
 use App\Page;
 use App\Domain;
+use App\Product;
 
 class PagesController extends Controller
 {
@@ -30,8 +31,9 @@ class PagesController extends Controller
 
     public function edit($id){
         $domains=Domain::lists('name','id');
+        $products=Product::lists('name','id');
         $pages= Page::findOrFail($id);
-        return view('pages.edit',compact('pages','domains'));
+        return view('pages.edit',compact('pages','domains','products'));
     }
 
     public function store(CreatePageRequest $request){
@@ -42,7 +44,8 @@ class PagesController extends Controller
 
     public function create(){
         $domains=Domain::lists('name','id');
-        return view('pages.create')->with('domains',$domains);
+        $products=Product::lists('name','id');
+        return view('pages.create',compact('domains','products'));
     }
 
     public function destroy($id){

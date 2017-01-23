@@ -9,7 +9,7 @@
             <div class="col-md-2">Akcje</div>
     </div>
     <div class="col-lg-12" style="padding-top:5px;">
-        <div class="col-md-3">{{$pages->domain_id}}</div>
+        <div class="col-md-3">{{$pages->domain->name}}</div>
         <div class="col-md-2">{{$pages->type}}</div>
         <div class="col-md-2">{{$pages->status}}</div>
         <div class="col-md-3">{{$pages->note}}</div>

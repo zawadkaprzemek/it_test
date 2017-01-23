@@ -27,6 +27,15 @@
 
 <div class="form-group">
     <div class="col-md-4 control-label">
+        {!! Form::label('products','Produkty:') !!}
+    </div>
+    <div class="col-md-6">
+        {!! Form::select('products',$products, null,['class'=>'form-control','multiple']) !!}
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-4 control-label">
         {!! Form::label('note','Notatka:') !!}
     </div>
     <div class="col-md-6">

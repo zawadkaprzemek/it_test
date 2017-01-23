@@ -12,9 +12,13 @@ class Page extends Model
         'status',
         'note'
     ];
-
+    //strona nalezy do domeny
     public function domain(){
         return $this->belongsTo('App\Domain');
+    }
+    //strona posiada produkty, jeden lub wiecej
+    public function products(){
+        return $this->belongsToMany('App\Product')->withTimestamps();
     }
 
 

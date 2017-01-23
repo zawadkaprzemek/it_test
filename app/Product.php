@@ -10,4 +10,9 @@ class Product extends Model
         'name',
         'code'
     ];
+
+    //produkt znajduje się na stronie, jeden produkt na wielu stronach
+    public function pages(){
+        return $this->belongsToMany('App\Page')->withTimestamps();
+    }
 }
