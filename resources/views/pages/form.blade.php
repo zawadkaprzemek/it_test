@@ -27,10 +27,10 @@
 
 <div class="form-group">
     <div class="col-md-4 control-label">
-        {!! Form::label('products','Produkty:') !!}
+        {!! Form::label('ProductsList','Produkty:') !!}
     </div>
     <div class="col-md-6">
-        {!! Form::select('products',$products, null,['class'=>'form-control','multiple']) !!}
+        {!! Form::select('ProductsList[]',$products, null,['class'=>'form-control','multiple']) !!}
     </div>
 </div>
 

@@ -37,7 +37,12 @@ class PagesController extends Controller
     }
 
     public function store(CreatePageRequest $request){
+        $page = new Page($request->all());
         Page::create($request->all());
+        //pages()->save($page);
+        $productsIds= $request->input('ProductsList');
+        $page->products()->attach($productsIds);
+        
         Session::flash('flash_message','Strona dodana');
         return redirect('pages');
     }
