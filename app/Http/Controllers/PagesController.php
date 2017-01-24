@@ -16,8 +16,9 @@ class PagesController extends Controller
 {
     public  function index(){
         $domains=Domain::lists('name','id');
+        $products=Product::lists('name','id');
         $pages= Page::latest()->get();
-        return view('pages.index',compact('pages','domains'));
+        return view('pages.index',compact('pages','domains','products'));
     }
 
     public function show($id){
@@ -37,10 +38,10 @@ class PagesController extends Controller
     }
 
     public function store(CreatePageRequest $request){
-        $page = new Page($request->all());
-        Page::create($request->all());
-        //pages()->save($page);
-        $productsIds= $request->input('ProductsList');
+        //$page = new Page($request->all());
+        $page=Page::create($request->all());
+        //Auth::pages()->save($page);
+        $productsIds= $request->input('ProductList');
         $page->products()->attach($productsIds);
         
         Session::flash('flash_message','Strona dodana');
@@ -68,6 +69,7 @@ class PagesController extends Controller
     public function update($id, CreatePageRequest $request){
         $page = Page::findOrFail($id);
         $page->update($request->all());
+        $page->products()->sync($request->input('ProductList'));
         return redirect('pages');
     }
 }

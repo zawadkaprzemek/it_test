@@ -21,5 +21,10 @@ class Page extends Model
         return $this->belongsToMany('App\Product')->withTimestamps();
     }
 
+    //lista id produktów dla strony
+    public function getProductListAttribute(){
+        return $this->products->lists('id')->all();
+    }
+
 
 }
