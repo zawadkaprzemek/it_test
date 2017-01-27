@@ -14,14 +14,14 @@ class CreatePageTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('domain_id')->unigned();
+            $table->integer('domain_id')->unsigned();
             $table->string('type');
             $table->string('status');
             $table->text('note');
             $table->timestamps();
-
+        });
+        Schema::table('pages', function(Blueprint $table) {
             $table->foreign('domain_id')->references('id')->on('domains');
-
         });
     }
 

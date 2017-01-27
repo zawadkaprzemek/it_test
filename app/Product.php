@@ -13,6 +13,8 @@ class Product extends Model
 
     //produkt znajduje się na stronie, jeden produkt na wielu stronach
     public function pages(){
-        return $this->belongsToMany('App\Page')->withTimestamps();
+        return $this->belongsToMany('App\Page')
+            ->withPivot('variant')
+            ->withTimestamps();
     }
 }

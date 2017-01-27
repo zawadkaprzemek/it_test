@@ -30,8 +30,29 @@
         {!! Form::label('ProductList','Produkty:') !!}
     </div>
     <div class="col-md-6">
-        {!! Form::select('ProductList[]',$products, null,['class'=>'form-control','multiple']) !!}
+        {!! Form::select('ProductList[]',$products, null,['class'=>'form-control','id'=>'produkty','multiple']) !!}
+        <div id="variants">
+            @if(isset($pages))
+                @foreach($pages->products as $product)
+                    <div id="prod_var">
+                    <label for="variants">
+                    {{$product->name}}
+                    </label>
+                    <select class="form-control" name="VariantList[]">
+                        @if($product->pivot->variant=='small')
+                        <option value="Small" selected>Small</option>
+                        <option value="Big">Big</option>
+                        @else
+                            <option value="Small">Small</option>
+                            <option value="Big" selected>Big</option>
+                        @endif
+                    </select>
+                    </div>
+                @endforeach
+            @endif
+        </div>
     </div>
+
 </div>
 
 <div class="form-group">
@@ -48,3 +69,28 @@
         {!! Form::submit($buttonText,['class'=>'btn btn-primary']) !!}
     </div>
 </div>
+
+    <script>
+        $(document).ready(function () {
+            console.log($('#produkty').val());
+            $('#produkty option').click(function () {
+                console.log($('#produkty').val());
+                var val=$('#produkty').val();
+                console.log(val);
+                /*foreach(val as vl){
+                    $('#variants').html($('#variants').html +' ' +vl);
+                }*/
+                $('#variants').html('');
+                val.forEach(function (vl) {
+                    var add='<div class="variants">' +
+                            '<label for="variant'+vl+'">' + $('#produkty option[value='+vl+']').text()+
+                            '<select class="form-control" name="VariantList[]">'+
+                            '<option value="Small">Small</option>'+
+                            '<option value="Big">Big</option>'+
+                            '</select></div>'
+                    $('#variants').html($('#variants').html()+add);
+                });
+
+            });
+        });
+    </script>

@@ -19,7 +19,8 @@
         <div class="col-md-2">{{$page->status}}</div>
         <div class="col-md-2">
             @foreach($page->products as $product)
-                {{$product->name}},
+                {{$product->name}}
+                {{$product->pivot->variant}},
             @endforeach</div>
         <div class="col-md-2">{{$page->note}}</div>
         <div class="col-md-2">

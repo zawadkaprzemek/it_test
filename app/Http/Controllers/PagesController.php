@@ -26,7 +26,7 @@ class PagesController extends Controller
             $pages = Page::findOrFail($id);
             return view('pages.show')->with('pages', $pages);
         }catch (\Exception $e) {
-            return "Nie znaleziono obiektu";
+            return("error: page id:".$id." not exists");
         }
     }
 
@@ -38,12 +38,18 @@ class PagesController extends Controller
     }
 
     public function store(CreatePageRequest $request){
+        //dd($request->all());
         //$page = new Page($request->all());
         $page=Page::create($request->all());
         //Auth::pages()->save($page);
         $productsIds= $request->input('ProductList');
-        $page->products()->attach($productsIds);
-        
+        $variants= $request->input('VariantList');
+//        dd($productsIds);
+//        dd($page->products()->attach());
+        for($a=0;$a<count($productsIds);$a++){
+            $page->products()->attach($productsIds[$a],['variant'=>$variants[$a]]);
+        }
+        //$page->products()->attach($productsIds,['variant'=>'big']);
         Session::flash('flash_message','Strona dodana');
         return redirect('pages');
     }

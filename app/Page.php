@@ -18,7 +18,9 @@ class Page extends Model
     }
     //strona posiada produkty, jeden lub wiecej
     public function products(){
-        return $this->belongsToMany('App\Product')->withTimestamps();
+        return $this->belongsToMany('App\Product')
+            ->withPivot('variant')
+            ->withTimestamps();
     }
 
     //lista id produktów dla strony

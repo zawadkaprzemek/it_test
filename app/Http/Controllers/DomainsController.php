@@ -18,9 +18,12 @@ class DomainsController extends Controller
     }
 
     public function show($id){
-        $domains = Domain::findOrFail($id);
-        return view('domains.show')->with('domains', $domains);
-
+        try {
+            $domains = Domain::findOrFail($id);
+            return view('domains.show')->with('domains', $domains);
+        }catch (\Exception $e) {
+            return("error: domain id:".$id." not exists");
+        }
     }
 
     public function edit($id){
