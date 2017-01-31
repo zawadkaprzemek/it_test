@@ -17,20 +17,16 @@ Route::get('/', function () {
 Route::resource('domains','DomainsController');
 Route::resource('products','ProductsController');
 Route::resource('pages','PagesController');
-//Route::auth();
-/*
-Route::get('/domains','DomainsController@index');
-Route::post('/domains','DomainsController@store');
-Route::get('/domains/create','DomainsController@create');
-Route::delete('/domains/{domains}',array('uses'=>'DomainsController@destroy','as'=>'domain_destroy'));
-Route::put('/domains/{domains}','DomainsController@update');
-Route::get('/domains/{domains}','DomainsController@show');
-Route::get('/domains/{domains}/edit','DomainsController@edit');
+Route::auth();
+Route::group(['prefix' => 'api/it', 'middleware' => []], function () {
 
-Route::get('/products','ProductsController@index');
-Route::post('/products','ProductsController@store');
-Route::get('/products/create','ProductsController@create');
-Route::delete('/products/{domains}',array('uses'=>'ProductsController@destroy','as'=>'product_destroy'));
-Route::put('/products/{products}','ProductsController@update');
-Route::get('/products/{products}','ProductsController@show');
-Route::get('/products/{products}/edit','ProductsController@edit');*/
+    Route::get('product/list', ['as' => 'get:product/list', 'uses' => 'ApiProductController@lists']);
+    Route::get('product/{id}', ['as' => 'get:product', 'uses' => 'ApiProductController@show']);
+
+    Route::get('domain/list', ['as' => 'get:domain/list', 'uses' => 'ApiDomainController@lists']);
+    Route::get('domain/{id}', ['as' => 'get:domain', 'uses' => 'ApiDomainController@show']);
+
+    Route::get('page/list', ['as' => 'get:page/list', 'uses' => 'ApiPageController@lists']);
+    Route::get('page/{id}', ['as' => 'get:page', 'uses' => 'ApiPageController@show']);
+
+});
