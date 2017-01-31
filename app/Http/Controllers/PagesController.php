@@ -30,6 +30,12 @@ class PagesController extends Controller
         }
     }
 
+    public function create(){
+        $domains=Domain::lists('name','id');
+        $products=Product::lists('name','id');
+        return view('pages.create',compact('domains','products'));
+    }
+
     public function edit($id){
         $domains=Domain::lists('name','id');
         $products=Product::lists('name','id');
@@ -38,27 +44,39 @@ class PagesController extends Controller
     }
 
     public function store(CreatePageRequest $request){
-        //dd($request->all());
-        //$page = new Page($request->all());
-        $page=Page::create($request->all());
-        //Auth::pages()->save($page);
-        $productsIds= $request->input('ProductList');
-        $variants= $request->input('VariantList');
-//        dd($productsIds);
-//        dd($page->products()->attach());
-        for($a=0;$a<count($productsIds);$a++){
-            $page->products()->attach($productsIds[$a],['variant'=>$variants[$a]]);
+        try {
+            $page = Page::create($request->all());
+            $productsIds = $request->input('ProductList');
+            $variants = $request->input('VariantList');
+            for ($a = 0; $a < count($productsIds); $a++) {
+                $page->products()->attach($productsIds[$a], ['variant' => $variants[$a]]);
+            }
+            Session::flash('flash_message', 'Strona dodana');
+        }catch (\Exception $e){
+            Session::flash('flash_message', 'Nie udało się dodać strony');
         }
-        //$page->products()->attach($productsIds,['variant'=>'big']);
-        Session::flash('flash_message','Strona dodana');
         return redirect('pages');
     }
 
-    public function create(){
-        $domains=Domain::lists('name','id');
-        $products=Product::lists('name','id');
-        return view('pages.create',compact('domains','products'));
+    public function update($id, CreatePageRequest $request){
+        try{
+        $page = Page::findOrFail($id);
+        $page->update($request->all());
+        $productsIds = $request->input('ProductList');
+        $variants = $request->input('VariantList');
+        $pivotData=[];
+        for($a=0;$a < count($productsIds); $a++){
+            array_push($pivotData,['variant'=>$variants[$a]]);
+        }
+        $syncData  = array_combine($productsIds, $pivotData);
+        $page->products()->sync($syncData);
+        Session::flash('flash_message', 'Edycja zakończona sukcesem');
+        }catch (\Exception $e) {
+            Session::flash('flash_message', 'Edycja zakończona porażką');
+        }
+        return redirect('pages');
     }
+
 
     public function destroy($id){
         try {
@@ -72,10 +90,5 @@ class PagesController extends Controller
         return redirect(action('PagesController@index'));
     }
 
-    public function update($id, CreatePageRequest $request){
-        $page = Page::findOrFail($id);
-        $page->update($request->all());
-        $page->products()->sync($request->input('ProductList'));
-        return redirect('pages');
-    }
+
 }

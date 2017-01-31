@@ -39,7 +39,7 @@
                     {{$product->name}}
                     </label>
                     <select class="form-control" name="VariantList[]">
-                        @if($product->pivot->variant=='small')
+                        @if($product->pivot->variant=='Small')
                         <option value="Small" selected>Small</option>
                         <option value="Big">Big</option>
                         @else

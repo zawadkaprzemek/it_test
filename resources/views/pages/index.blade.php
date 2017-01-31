@@ -20,7 +20,7 @@
         <div class="col-md-2">
             @foreach($page->products as $product)
                 {{$product->name}}
-                {{$product->pivot->variant}},
+                {{$product->pivot->variant}},<br>
             @endforeach</div>
         <div class="col-md-2">{{$page->note}}</div>
         <div class="col-md-2">
