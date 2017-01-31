@@ -26,7 +26,8 @@ class CreatePageRequest extends Request
         return [
             'domain_id'=>'required',
             'type'=>'required',
-            'status'=>'required'
+            'status'=>'required',
+            'ProductList'=>'required',
         ];
     }
 }

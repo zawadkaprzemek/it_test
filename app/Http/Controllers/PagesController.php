@@ -11,6 +11,7 @@ use Flash;
 use App\Page;
 use App\Domain;
 use App\Product;
+use Illuminate\Support\Facades\Log;
 
 class PagesController extends Controller
 {
@@ -26,6 +27,7 @@ class PagesController extends Controller
             $pages = Page::findOrFail($id);
             return view('pages.show')->with('pages', $pages);
         }catch (\Exception $e) {
+            Log::error($e);
             return("error: page id:".$id." not exists");
         }
     }
@@ -36,13 +38,6 @@ class PagesController extends Controller
         return view('pages.create',compact('domains','products'));
     }
 
-    public function edit($id){
-        $domains=Domain::lists('name','id');
-        $products=Product::lists('name','id');
-        $pages= Page::findOrFail($id);
-        return view('pages.edit',compact('pages','domains','products'));
-    }
-
     public function store(CreatePageRequest $request){
         try {
             $page = Page::create($request->all());
@@ -51,11 +46,20 @@ class PagesController extends Controller
             for ($a = 0; $a < count($productsIds); $a++) {
                 $page->products()->attach($productsIds[$a], ['variant' => $variants[$a]]);
             }
+            Log::info("Utworzono nową stronę");
             Session::flash('flash_message', 'Strona dodana');
         }catch (\Exception $e){
+            Log::error($e);
             Session::flash('flash_message', 'Nie udało się dodać strony');
         }
         return redirect('pages');
+    }
+
+    public function edit($id){
+        $domains=Domain::lists('name','id');
+        $products=Product::lists('name','id');
+        $pages= Page::findOrFail($id);
+        return view('pages.edit',compact('pages','domains','products'));
     }
 
     public function update($id, CreatePageRequest $request){
@@ -72,6 +76,7 @@ class PagesController extends Controller
         $page->products()->sync($syncData);
         Session::flash('flash_message', 'Edycja zakończona sukcesem');
         }catch (\Exception $e) {
+            Log::error($e);
             Session::flash('flash_message', 'Edycja zakończona porażką');
         }
         return redirect('pages');
@@ -83,7 +88,9 @@ class PagesController extends Controller
             $pages= Page::findOrFail($id);
             Page::destroy($pages->id);
             Session::flash('flash_message','Strona została usunięta');
+            Log::info("Usunięto stronę");
         } catch (\Exception $e) {
+            Log::error($e);
             Session::flash('flash_message','Nie udało się usunąć');
         }
 
