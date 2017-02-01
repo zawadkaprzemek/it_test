@@ -10,6 +10,11 @@ use App\Http\Requests;
 
 class ApiPageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function lists()     {
         return Page::latest()->get();
     }

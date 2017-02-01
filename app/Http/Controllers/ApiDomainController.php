@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Domain;
 use App\Http\Requests;
+use Auth;
 
 class ApiDomainController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function lists()     {
         return Domain::latest()->get();

@@ -18,7 +18,7 @@ Route::resource('domains','DomainsController');
 Route::resource('products','ProductsController');
 Route::resource('pages','PagesController');
 Route::auth();
-Route::group(['prefix' => 'api/it', 'middleware' => []], function () {
+Route::group(['prefix' => 'api/it', 'middleware' => 'auth:api'], function () {
 
     Route::get('product/list', ['as' => 'get:product/list', 'uses' => 'ApiProductController@lists']);
     Route::get('product/{id}', ['as' => 'get:product', 'uses' => 'ApiProductController@show']);
@@ -30,3 +30,5 @@ Route::group(['prefix' => 'api/it', 'middleware' => []], function () {
     Route::get('page/{id}', ['as' => 'get:page', 'uses' => 'ApiPageController@show']);
 
 });
+
+Route::get('/home', 'HomeController@index');

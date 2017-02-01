@@ -10,11 +10,10 @@ use App\Http\Controllers\Controller;
 
 class ApiProductController extends Controller
 {
-    /*public function __construct()     {
-        $this->middleware('validator:\App\Product', [
-            'only' => ['store','update']
-        ]);
-    }*/
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function lists()     {
         return Product::latest()->get();
